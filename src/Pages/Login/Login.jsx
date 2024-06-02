@@ -35,7 +35,7 @@ const Login = () => {
                 toast.success('User Login Successfully Done.');
                 navigate(from, { replace: true });
                 // navigate(location?.state ? location.state : '/');
-                // navigate(from, { replace: true });
+                reset();
                 console.log(result.user);
             })
             .catch(error => {
@@ -62,7 +62,6 @@ const Login = () => {
                         <p className="text-base text-center dark:text-gray-600">Don't have account?
                             <Link to='/register' rel="noopener noreferrer" className="focus:underline hover:underline font-bold ml-1 bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text">Register here</Link>
                         </p>
-                        {/* onClick={handleGooglesignIn} */}
                         <div className="my-6 space-y-4 ">
                             <Google></Google>
                             {/* onClick={handleGithubsignIn} */}
@@ -78,7 +77,6 @@ const Login = () => {
                             <p className="px-3 dark:text-gray-600">OR</p>
                             <hr className="w-full dark:text-gray-600" />
                         </div>
-                        {/* onSubmit={handleLoginForm} */}
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                             <div className="space-y-4">
                                 <div className="space-y-2">

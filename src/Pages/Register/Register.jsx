@@ -25,11 +25,15 @@ const Register = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 logOut();
-                toast.success("Registration Successfully Done.");
                 // console.log(result.user);
 
                 updateUserProfile(data.name, data.photoURL)
-                    .then(() => console.log('profile updated'))
+                    .then(() => {
+                        console.log('profile updated');
+                        toast.success("Registration Successfully Done.");
+                        navigate("/login");
+                        reset();
+                    })
                     .catch(error => console.log(error))
             })
             .catch(error => {
