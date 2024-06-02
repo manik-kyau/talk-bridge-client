@@ -1,21 +1,40 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import registerImg from '../../assets/images/register.jpg';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import google from '../../assets/images/google.png';
-// import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const Register = () => {
 
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
-    // const {
-    //     register,
-    //     handleSubmit,
-    //     reset,
-    //     formState: { errors },
-    // } = useForm();
+    const { register, handleSubmit, reset, formState: { errors }, } = useForm();
+    const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
+
+    const onSubmit = (data) => {
+        // console.log(data);
+
+        createUser(data.email, data.password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                // logOut();
+                toast.success("Registration Successfully Done.");
+                // console.log(result.user);
+
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => console.log('profile updated'))
+                    .catch(error => console.log(error))
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
 
     return (
         <div>
@@ -28,32 +47,65 @@ const Register = () => {
                 </div>
                 <section className="md:px-6 dark:text-gray-800 md:w-1/2 " data-aos="flip-down">
                     {/*  */}
-                    <form className=" w-full max-w-xl p-8 mx-auto space-y-6 rounded-xl border shadow-lg dark:bg-gray-50 ">
+                    <form onSubmit={handleSubmit(onSubmit)} className=" w-full max-w-xl p-8 mx-auto space-y-6 rounded-xl border shadow-lg dark:bg-gray-50 ">
                         <h2 className="w-full text-3xl font-bold leading-tight">Registration Now</h2>
                         <div>
                             <label className="block text-lg font-semibold">Name</label>
-                            <input type="text" name='name' placeholder="Your name" className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
+                            <input
+                                type="text"
+                                // name='name'
+                                {...register("name", { required: true })}
+                                placeholder="Your name"
+                                className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
+                            {errors.name?.type === "required" && <span className="text-red-500">Please enter your name.</span>}
                         </div>
                         <div>
                             <label className="block text-lg font-semibold">Email</label>
-                            <input type="email" name='email' placeholder="Your email" className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
+                            <input
+                                type="email"
+                                // name='email'
+                                {...register("email", { required: true })}
+                                placeholder="Your email"
+                                className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
+                            {errors.email?.type === "required" && <span className="text-red-500">Please enter email address.</span>}
                         </div>
                         <div>
                             <label className="block text-lg font-semibold">PhotoURL</label>
-                            <input type="text" name='photo' placeholder="Your photo" className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
+                            <input
+                                type="text"
+                                {...register("photoURL", { required: true })}
+                                // name='photo'
+                                placeholder="Your photo"
+                                className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
+                            {errors.photoURL?.type === "required" && <span className="text-red-500">Please enter photo url.</span>}
                         </div>
                         <div>
                             <label className="block text-lg font-semibold">Password</label>
                             <div className="relative">
-                                <input type={showPassword ? "text" : "password"}
-                                    name='password'
-                                    placeholder="Your Password"
-                                    className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
-                                <span onClick={() => setShowPassword(!showPassword)} className="absolute bottom-[10px] right-4 cursor-pointer text-2xl">
-                                    {
-                                        showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>
-                                    }
-                                </span>
+
+                                <div>{/* TODO: */}
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        // name='password'
+                                        {...register("password", {
+                                            required: true,
+                                            minLength: 6,
+                                            maxLength: 20,
+                                            pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                        })}
+                                        placeholder="Your Password"
+                                        className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
+
+                                    <span onClick={() => setShowPassword(!showPassword)} className="absolute bottom-[10px] right-4 cursor-pointer text-2xl">
+                                        {
+                                            showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>
+                                        }
+                                    </span>
+                                </div>
+                                {errors.password?.type === "required" && <span className="text-red-500">Please enter password.</span>}
+                                {errors.password?.type === "minLength" && <span className="text-red-500">Password must be 6 charecters.</span>}
+                                {errors.password?.type === "maxLength" && <span className="text-red-500">Password must be less than 20 charecters.</span>}
+                                {errors.password?.type === "pattern" && <span className="text-red-500">Password must have one uppercase,lowercase,number and special charecter.</span>}
                             </div>
                         </div>
 

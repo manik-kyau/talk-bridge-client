@@ -1,6 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
 const Navbar = () => {
+
+    const {user, logOut} = useContext(AuthContext);
 
     const NavItems = <>
         <li><NavLink to='/'
@@ -9,13 +13,21 @@ const Navbar = () => {
         <li><NavLink to='/membership'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
         >Membership</NavLink></li>
-        <li><NavLink to='/login'
+        {/* <li><NavLink to='/login'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
         >Login</NavLink></li>
         <li><NavLink to='/register'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
-        >register</NavLink></li>
+        >register</NavLink></li> */}
     </>
+
+    const handleLogOut = () =>{
+        logOut()
+        .then(result => {
+            console.log(result.user);
+        })
+        .catch(error => console.log(error))
+    }
     return (
         <div className="border">
             <div className="navbar justify-between px-0">
@@ -55,7 +67,7 @@ const Navbar = () => {
                         </label>
                     </div> */}
 
-                    {/* {user && (
+                    {user && (
                         <div className='dropdown dropdown-end z-50'>
                             <div
                                 tabIndex={0}
@@ -75,7 +87,11 @@ const Navbar = () => {
                                 className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-md w-52'
                             >
                                 <li className="text-lg font-bold">
-                                    <Link to='/mySubmited'>My Submited</Link>
+                                    <h2>{user?.displayName}</h2>
+                                </li>
+
+                                <li className="text-lg font-bold">
+                                    <Link to='/'>Dashboard</Link>
                                 </li>
 
                                 <li className='mt-2'>
@@ -83,9 +99,9 @@ const Navbar = () => {
                                 </li>
                             </ul>
                         </div>
-                    )} */}
+                    )}
 
-                    {/* <div>
+                    <div>
                         {
                             user ? "" : <Link to='/register'>
                                 <button className="btn mr-5 bg-none hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-lg font-semibold hover:text-white">Register</button>
@@ -95,7 +111,7 @@ const Navbar = () => {
                             user ? "" : <Link to='/login' className="btn bg-[#9873FF] text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-lg font-semibold">Login
                             </Link>
                         }
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>
