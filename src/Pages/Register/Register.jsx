@@ -1,12 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import registerImg from '../../assets/images/register.jpg';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import google from '../../assets/images/google.png';
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../../Providers/AuthProvider";
 import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
+import Google from "../Shared/Google/Google";
 
 const Register = () => {
 
@@ -14,7 +15,7 @@ const Register = () => {
     const navigate = useNavigate();
 
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
-    const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
+    const { createUser, updateUserProfile, logOut } = useAuth();
 
     const onSubmit = (data) => {
         // console.log(data);
@@ -23,7 +24,7 @@ const Register = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-                // logOut();
+                logOut();
                 toast.success("Registration Successfully Done.");
                 // console.log(result.user);
 
@@ -82,31 +83,28 @@ const Register = () => {
                         <div>
                             <label className="block text-lg font-semibold">Password</label>
                             <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    // name='password'
+                                    {...register("password", {
+                                        required: true,
+                                        minLength: 6,
+                                        maxLength: 20,
+                                        pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                    })}
+                                    placeholder="Your Password"
+                                    className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
 
-                                <div>{/* TODO: */}
-                                    <input
-                                        type={showPassword ? "text" : "password"}
-                                        // name='password'
-                                        {...register("password", {
-                                            required: true,
-                                            minLength: 6,
-                                            maxLength: 20,
-                                            pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                                        })}
-                                        placeholder="Your Password"
-                                        className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
-
-                                    <span onClick={() => setShowPassword(!showPassword)} className="absolute bottom-[10px] right-4 cursor-pointer text-2xl">
-                                        {
-                                            showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>
-                                        }
-                                    </span>
-                                </div>
-                                {errors.password?.type === "required" && <span className="text-red-500">Please enter password.</span>}
-                                {errors.password?.type === "minLength" && <span className="text-red-500">Password must be 6 charecters.</span>}
-                                {errors.password?.type === "maxLength" && <span className="text-red-500">Password must be less than 20 charecters.</span>}
-                                {errors.password?.type === "pattern" && <span className="text-red-500">Password must have one uppercase,lowercase,number and special charecter.</span>}
+                                <span onClick={() => setShowPassword(!showPassword)} className="absolute bottom-[10px] right-4 cursor-pointer text-2xl">
+                                    {
+                                        showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>
+                                    }
+                                </span>
                             </div>
+                            {errors.password?.type === "required" && <span className="text-red-500">Please enter password.</span>}
+                            {errors.password?.type === "minLength" && <span className="text-red-500">Password must be 6 charecters.</span>}
+                            {errors.password?.type === "maxLength" && <span className="text-red-500">Password must be less than 20 charecters.</span>}
+                            {errors.password?.type === "pattern" && <span className="text-red-500">Password must have one uppercase,lowercase,number and special charecter.</span>}
                         </div>
 
                         <div>
@@ -119,15 +117,11 @@ const Register = () => {
                             <hr className="w-full dark:text-gray-600" />
                         </div>
 
-                        <button aria-label="Login with Google" type="button" className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 dark:border-gray-600 focus:dark:ring-violet-600">
-                            <img src={google} alt="" />
-                            <p className="text-base font-medium">Login with Google</p>
-                        </button>
-
+                        <Google></Google>
                         <div>
                             <p className="text-base dark:text-gray-600">Already have an account? Please <Link to='/login' className="focus:underline hover:underline font-bold ml-1 bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text">Log In</Link></p>
                         </div>
-
+                            
                     </form>
                 </section>
             </div>

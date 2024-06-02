@@ -1,10 +1,10 @@
-import { useContext } from "react";
+
 import { Link, NavLink } from "react-router-dom";
-import { AuthContext } from "../../../Providers/AuthProvider";
+import useAuth from "../../../Hooks/useAuth";
 
 const Navbar = () => {
 
-    const {user, logOut} = useContext(AuthContext);
+    const {user, logOut} = useAuth()
 
     const NavItems = <>
         <li><NavLink to='/'
@@ -13,10 +13,10 @@ const Navbar = () => {
         <li><NavLink to='/membership'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
         >Membership</NavLink></li>
-        {/* <li><NavLink to='/login'
+        <li><NavLink to='/secret'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
-        >Login</NavLink></li>
-        <li><NavLink to='/register'
+        >Secret</NavLink></li>
+        {/* <li><NavLink to='/register'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
         >register</NavLink></li> */}
     </>

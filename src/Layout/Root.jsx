@@ -13,7 +13,9 @@ const Root = () => {
             <div className="max-w-[1180px] mx-auto">
                 {/* {noHeaderFooter || <Navbar></Navbar>} */}
                 <Navbar></Navbar>
-                <Outlet></Outlet>
+                <div className="min-h-[calc(100vh-348px)]">
+                    <Outlet></Outlet>
+                </div>
             </div>
             <Footer></Footer>
             {/* {noHeaderFooter || <Footer></Footer>} */}

@@ -16,7 +16,7 @@ const ErrorPage = () => {
                         </h2>
                         <p className="text-2xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
                         <p className="mt-4 mb-8 dark:text-gray-600">But dont worry, you can find plenty of other things on our homepage.</p>
-                        <Link to='/'><button  className="btn px-8 bg-green-500 hover:bg-green-500  text-white font-semibold rounded dark:bg-violet-600 dark:text-gray-50 text-lg">Back to homepage</button> 
+                        <Link to='/'><button  className="btn px-8 text-lg bg-green-500 bg-gradient-to-r from-[#7E90FE] to-[#9873FF]  text-white font-semibold rounded">Back to homepage</button> 
                         </Link>
                     </div>
                 </div>
