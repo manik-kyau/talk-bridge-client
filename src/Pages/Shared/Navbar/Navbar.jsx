@@ -30,7 +30,7 @@ const Navbar = () => {
             .catch(error => console.log(error))
     }
     return (
-        <div className="fixed w-[1180px] bg-black bg-opacity-50 text-white">
+        <div className="fixed w-full lg:w-[1180px] bg-black bg-opacity-50 text-white px-5 lg:px-0">
             <div className="navbar justify-between px-0">
                 <div className="navbar-start">
                     <div className="dropdown  z-50">
