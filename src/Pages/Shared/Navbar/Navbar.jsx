@@ -1,10 +1,11 @@
 
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
+import { IoNotifications } from "react-icons/io5";
 
 const Navbar = () => {
 
-    const {user, logOut} = useAuth()
+    const { user, logOut } = useAuth()
 
     const NavItems = <>
         <li><NavLink to='/'
@@ -21,15 +22,15 @@ const Navbar = () => {
         >register</NavLink></li> */}
     </>
 
-    const handleLogOut = () =>{
+    const handleLogOut = () => {
         logOut()
-        .then(result => {
-            console.log(result.user);
-        })
-        .catch(error => console.log(error))
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => console.log(error))
     }
     return (
-        <div className="border">
+        <div className="fixed w-[1180px] bg-black bg-opacity-50 text-white">
             <div className="navbar justify-between px-0">
                 <div className="navbar-start">
                     <div className="dropdown  z-50">
@@ -41,7 +42,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <h2 className="text-3xl font-bold ">
-                    Talk<span className="bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text">Bridge</span>
+                        Talk<span className="bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text">Bridge</span>
                     </h2>
                 </div>
                 <div className="navbar-center hidden lg:flex">
@@ -101,16 +102,17 @@ const Navbar = () => {
                         </div>
                     )}
 
-                    <div>
-                        {
-                            user ? "" : <Link to='/register'>
-                                <button className="btn mr-5 bg-none hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-lg font-semibold hover:text-white">Register</button>
-                            </Link>
-                        }
-                        {
-                            user ? "" : <Link to='/login' className="btn bg-[#9873FF] text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-lg font-semibold">Login
-                            </Link>
-                        }
+                    <div className="flex items-center">
+                        <div className="indicator">
+                            {/* <span className="indicator-item badge badge-secondary">99+</span> */}
+                            <IoNotifications className="text-3xl mr-4  text-[#9873FF] "></IoNotifications>
+                        </div>
+                        <div>
+                            {
+                                user ? "" : <Link to='/login' className="btn bg-[#9873FF] text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-lg font-semibold border-none">Join US
+                                </Link>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
