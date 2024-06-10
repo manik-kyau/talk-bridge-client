@@ -15,10 +15,10 @@ const Login = () => {
     const { userLogin } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location);
+    // console.log(location);
 
     const from = location.state?.from?.pathname || "/";
-    console.log('state in the location login page', location.state);
+    // console.log('state in the location login page', location.state);
 
     const {
         register,

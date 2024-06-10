@@ -9,13 +9,13 @@ const Navbar = () => {
 
     const NavItems = <>
         <li><NavLink to='/'
-            className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
+            className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
         >Home</NavLink></li>
         <li><NavLink to='/membership'
-            className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
+            className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
         >Membership</NavLink></li>
         <li><NavLink to='/secret'
-            className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
+            className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
         >Secret</NavLink></li>
         {/* <li><NavLink to='/register'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
@@ -30,7 +30,7 @@ const Navbar = () => {
             .catch(error => console.log(error))
     }
     return (
-        <div className="fixed w-full lg:w-[1180px] bg-black bg-opacity-50 text-white px-5 lg:px-0">
+        <div className="fixed w-full lg:w-[1180px] bg-black bg-opacity-50  px-5 lg:px-0">
             <div className="navbar justify-between px-0">
                 <div className="navbar-start">
                     <div className="dropdown  z-50">
@@ -41,7 +41,7 @@ const Navbar = () => {
                             {NavItems}
                         </ul>
                     </div>
-                    <h2 className="text-3xl font-bold ">
+                    <h2 className="text-3xl font-bold text-white">
                         Talk<span className="bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text">Bridge</span>
                     </h2>
                 </div>
@@ -50,7 +50,7 @@ const Navbar = () => {
                         {NavItems}
                     </ul>
                 </div>
-                <div className="navbar-end w-full md:w-[450px]">
+                <div className="navbar-end w-full">
 
                     {/* <div className="mr-3">
 
@@ -67,9 +67,14 @@ const Navbar = () => {
 
                         </label>
                     </div> */}
+                    <button className="flex mr-4">
+                        <IoNotifications className="text-3xl text-[#9873FF]"></IoNotifications>
+                        <div className="badge">+0</div>
+                    </button>
 
                     {user && (
-                        <div className='dropdown dropdown-end z-50'>
+                        <div className='dropdown dropdown-end z-50 items-center'>
+
                             <div
                                 tabIndex={0}
                                 role='button'
@@ -92,7 +97,7 @@ const Navbar = () => {
                                 </li>
 
                                 <li className="text-lg font-bold">
-                                    <Link to='/'>Dashboard</Link>
+                                    <Link to='dashboard'>Dashboard</Link>
                                 </li>
 
                                 <li className='mt-2'>
@@ -103,10 +108,15 @@ const Navbar = () => {
                     )}
 
                     <div className="flex items-center">
-                        <div className="indicator">
-                            {/* <span className="indicator-item badge badge-secondary">99+</span> */}
+                        {/* <div className="indicator">
+
+                            <button className="flex">
+                            <IoNotifications className="text-3xl text-[#9873FF]"></IoNotifications>
+                                <div className="badge">+0</div>
+                            </button>
+
                             <IoNotifications className="text-3xl mr-4  text-[#9873FF] "></IoNotifications>
-                        </div>
+                        </div> */}
                         <div>
                             {
                                 user ? "" : <Link to='/login' className="btn bg-[#9873FF] text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-lg font-semibold border-none">Join US
