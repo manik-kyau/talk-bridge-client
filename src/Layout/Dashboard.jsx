@@ -3,7 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 const Dashboard = () => {
     return (
         <div className="flex gap-6 max-w-[1180px] mx-auto">
-            <div className="w-64 h-screen bg-gradient-to-r from-[#7E90FE] to-[#9873FF]">
+            <div className="w-64 min-h-screen bg-gradient-to-r from-[#7E90FE] to-[#9873FF]">
                 <ul className="menu">
                     <li className="text-lg font-medium"><NavLink to='/dashboard/myProfile'>My Profile</NavLink></li>
                     <li className="text-lg font-medium"><NavLink to='/dashboard/addPost'>Add Post</NavLink></li>
