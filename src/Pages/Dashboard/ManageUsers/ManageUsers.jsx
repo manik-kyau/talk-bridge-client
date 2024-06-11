@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import toast from "react-hot-toast";
 
 const ManageUsers = () => {
     const axiosSecure = useAxiosSecure();
@@ -43,6 +44,18 @@ const ManageUsers = () => {
         });
     }
 
+    // create admin 
+    const handleMakeAdmin=(user)=>{
+        axiosSecure.patch(`/users/admin/${user._id}`)
+        .then(res =>{
+            console.log(res.data);
+            if(res.data.modifiedCount > 0){
+                toast.success(`${user.name} is an admin now!`);
+                refetch();
+            }
+        })
+    }
+
     return (
         <div>
             <div className="">
@@ -73,7 +86,6 @@ const ManageUsers = () => {
                                 <td className="text-base font-semibold">{user.badge}</td>
                                 <td className="">
                                     {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="flex items-center justify-center text-center btn-xs py-4 bg-[#D1A054] text-white rounded-lg">
-                                        {/* <FaUsers className="text-xl "></FaUsers>*/}
                                         <h2 className="text-base">Make Admin</h2>
                                     </button>}
                                 </td>
