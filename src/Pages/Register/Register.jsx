@@ -8,9 +8,11 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
 import Google from "../Shared/Google/Google";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
 
+    const axiosPublic = useAxiosPublic();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
@@ -27,17 +29,31 @@ const Register = () => {
                 logOut();
                 // console.log(result.user);
 
-                updateUserProfile(data.name, data.photoURL,data.badge)
+                updateUserProfile(data.name, data.photoURL)
                     .then(() => {
                         console.log('profile updated');
-                        toast.success("Registration Successfully Done.");
-                        navigate("/login");
-                        reset();
+                        // create user entry in the database
+
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                            image: data.photoURL,
+                            badge: 'bronze',
+                        }
+                        axiosPublic.post('/users',userInfo)
+                        .then(res => {
+                            if(res.data.insertedId){
+                                toast.success("Registration Successfully Done.");
+                                navigate("/login");
+                                reset();
+                            }
+                        })
                     })
                     .catch(error => console.log(error))
             })
             .catch(error => {
                 console.log(error);
+                toast.error("User already created!")
             })
     }
 
@@ -85,15 +101,6 @@ const Register = () => {
                             {errors.photoURL?.type === "required" && <span className="text-red-500">Please enter photo url.</span>}
                         </div>
                         <div>
-                            <label className="block text-lg font-semibold">Badge</label>
-                            <select id="badge" name="badge" className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border">
-                                <option value="bronze" disabled>Badge</option>
-                                <option value="bronze">Bronze</option>
-                                <option value="gold">Gold</option>
-                            </select>
-
-                        </div>
-                        <div>
                             <label className="block text-lg font-semibold">Password</label>
                             <div className="relative">
                                 <input
@@ -134,7 +141,6 @@ const Register = () => {
                         <div>
                             <p className="text-base dark:text-gray-600">Already have an account? Please <Link to='/login' className="focus:underline hover:underline font-bold ml-1 bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text">Log In</Link></p>
                         </div>
-
                     </form>
                 </section>
             </div>

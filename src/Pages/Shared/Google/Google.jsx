@@ -1,9 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import google from '../../../assets/images/google.png';
 import useAuth from '../../../Hooks/useAuth';
+import useAxiosPublic from '../../../Hooks/useAxiosPublic';
+import toast from 'react-hot-toast';
 const Google = () => {
 
     const { googleLogin } = useAuth();
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const location = useLocation();
     // console.log(location);
@@ -16,7 +19,19 @@ const Google = () => {
             .then(result => {
                 const googleUser = result.user;
                 console.log(googleUser);
-                navigate(from, { replace: true });
+                const userInfo = {
+                    name: result.user?.displayName,
+                    email: result.user?.email,
+                    image: result.user?.photoURL,
+                    badge: 'bronze',
+                }
+                
+                axiosPublic.post('/users',userInfo)
+                .then(res =>{
+                    console.log(res.data);
+                    navigate(from, { replace: true });
+                    toast.success("Login Successfully Done.")
+                })
             })
             .catch(error => {
                 console.log(error);

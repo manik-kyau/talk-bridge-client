@@ -12,7 +12,7 @@ const AllPosts = () => {
     const sortedPosts = posts.sort((a, b) => new Date(b.postTime
     ) - new Date(a.postTime
     ));
-    console.log(sortedPosts );
+    // console.log(sortedPosts );
 
     // const tags = Array.from(
     //     new Set(posts.map((res) => res.tag))
