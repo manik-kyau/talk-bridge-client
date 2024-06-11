@@ -1,8 +1,9 @@
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
-    // TODO: get isAdmin value from the database 
-    const isAdmin = true;
+    // get isAdmin value from the database 
+    const [isAdmin] = useAdmin();
     return (
         <div className="flex gap-6 max-w-[1180px] mx-auto">
             <div className="w-64 min-h-screen bg-gradient-to-r from-[#7E90FE] to-[#9873FF]">
