@@ -13,6 +13,7 @@ const Dashboard = () => {
                             {/* <li className="text-lg font-medium"><NavLink to='/dashboard/adminHome'>Admin Home</NavLink></li> */}
                             <li className="text-lg font-medium"><NavLink to='/dashboard/adminProfile'>Admin Profile</NavLink></li>
                             <li className="text-lg font-medium"><NavLink to='/dashboard/manageUsers'>Manage Users</NavLink></li>
+                            <li className="text-lg font-medium"><NavLink to='/dashboard/allAnnouncements'>All Announcements</NavLink></li>
                             <li className="text-lg font-medium"><NavLink to='/dashboard/reportedComments'>Reported Comments</NavLink></li>
                             <li className="text-lg font-medium"><NavLink to='/dashboard/announcement'>Make Announcement</NavLink></li>
                         </>

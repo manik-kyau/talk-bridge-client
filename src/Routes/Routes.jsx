@@ -14,6 +14,9 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import AdminProfile from "../Pages/Dashboard/AdminProfile/AdminProfile";
 import MakeAnnouncement from "../Pages/Dashboard/MakeAnnouncement/MakeAnnouncement";
 import AdminRoute from "./AdminRoute";
+import ManageAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnouncements";
+import AllAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnouncements";
+import UpdateAnnouncement from "../Pages/Dashboard/UpdateAnnouncement/UpdateAnnouncement";
 
 export const router = createBrowserRouter([
     {
@@ -70,6 +73,15 @@ export const router = createBrowserRouter([
             {
                 path: 'announcement',
                 element: <AdminRoute><MakeAnnouncement></MakeAnnouncement></AdminRoute>
+            },
+            {
+                path: 'allAnnouncements',
+                element: <AdminRoute><AllAnnouncements></AllAnnouncements></AdminRoute>
+            },
+            {
+                path: 'updateAnnouncement/:id',
+                element: <AdminRoute><UpdateAnnouncement></UpdateAnnouncement></AdminRoute>,
+                loader: ({params})=> fetch(`http://localhost:5000/announcements/${params.id}`)
             },
         ]
     }

@@ -2,10 +2,12 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import { IoNotifications } from "react-icons/io5";
+import useAnnouncement from "../../../Hooks/useAnnouncement";
 
 const Navbar = () => {
 
-    const { user, logOut } = useAuth()
+    const { user, logOut } = useAuth();
+    const [annousments] = useAnnouncement();
 
     const NavItems = <>
         <li><NavLink to='/'
@@ -69,7 +71,7 @@ const Navbar = () => {
                     </div> */}
                     <button className="flex mr-4">
                         <IoNotifications className="text-3xl text-[#9873FF]"></IoNotifications>
-                        <div className="badge">+0</div>
+                        <div className="badge">+{annousments.length}</div>
                     </button>
 
                     {user && (
