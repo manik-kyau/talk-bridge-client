@@ -1,6 +1,7 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import { BiLogoTelegram } from "react-icons/bi";
 import { useState } from "react";
+import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 
 const PostDetails = () => {
 
@@ -24,9 +25,9 @@ const PostDetails = () => {
                     {/* <BiLogoTelegram></BiLogoTelegram> */}
                     Comment
                 </button>
-                <button onClick={() => setUpCount((upCount) => upCount + 1)} className="btn">UpVote: {upCount}</button>
-                <button onClick={() => setDownCount((downCount) => downCount + 1)} className="btn">DownVote: {downCount}</button>
-                <button className="btn">Share</button>
+                <button onClick={() => setUpCount((upCount) => upCount + 1)} className="btn text-lg">UpVote: <FaArrowTrendUp></FaArrowTrendUp>{upCount}</button>
+                <button onClick={() => setDownCount((downCount) => downCount + 1)} className="btn text-lg">DownVote: <FaArrowTrendDown></FaArrowTrendDown>{downCount}</button>
+                <button className="btn text-lg">Share</button>
             </div>
         </div>
     );

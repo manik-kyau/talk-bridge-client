@@ -65,7 +65,7 @@ const ManageUsers = () => {
             <div className="overflow-x-auto mt-8">
                 <table className="table">
                     {/* head */}
-                    <thead className="bg-[#D1A054] text-white text-lg font-bold ">
+                    <thead className="bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white text-lg font-bold ">
                         <tr className="">
                             <th></th>
                             {/* <th>User Image</th> */}
@@ -85,7 +85,7 @@ const ManageUsers = () => {
                                 <td className="text-base font-semibold">{user.email}</td>
                                 <td className="text-base font-semibold">{user.badge}</td>
                                 <td className="">
-                                    {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="flex items-center justify-center text-center btn-xs py-4 bg-[#D1A054] text-white rounded-lg">
+                                    {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="flex items-center justify-center text-center btn-xs py-4 bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white rounded-lg">
                                         <h2 className="text-base">Make Admin</h2>
                                     </button>}
                                 </td>

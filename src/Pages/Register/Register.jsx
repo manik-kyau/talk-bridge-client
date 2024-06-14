@@ -62,7 +62,7 @@ const Register = () => {
             <Helmet>
                 <title>Register</title>
             </Helmet>
-            <div className="flex flex-col md:flex-row my-12">
+            <div className="flex flex-col md:flex-row pt-[120px] pb-12">
                 <div className="w-1/2 hidden md:block">
                     <img className="h-full" src={registerImg} alt="" />
                 </div>

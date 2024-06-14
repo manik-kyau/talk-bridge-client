@@ -41,7 +41,7 @@ const AllAnnouncements = () => {
                 <div className="overflow-x-auto mt-8">
                     <table className="table">
                         {/* head */}
-                        <thead className="bg-[#D1A054] text-white text-lg font-bold ">
+                        <thead className="bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white text-lg font-bold ">
                             <tr className="">
                                 <th></th>
                                 {/* <th>User Image</th> */}
@@ -65,7 +65,7 @@ const AllAnnouncements = () => {
                                     {/* <td></td> */}
                                     <td className="">
                                         <Link to={`/dashboard/updateAnnouncement/${announcement._id}`}>
-                                            <button className="flex items-center justify-center text-center btn-xs py-4 bg-[#D1A054] text-white rounded-lg"><FiEdit className="text-xl "></FiEdit></button>
+                                            <button className="flex items-center justify-center text-center btn-xs py-4 bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white rounded-lg"><FiEdit className="text-xl "></FiEdit></button>
                                         </Link>
                                     </td>
                                     <th className="">

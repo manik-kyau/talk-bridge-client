@@ -17,6 +17,7 @@ import AdminRoute from "./AdminRoute";
 import ManageAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnouncements";
 import AllAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnouncements";
 import UpdateAnnouncement from "../Pages/Dashboard/UpdateAnnouncement/UpdateAnnouncement";
+import Membership from "../Pages/Membership/Membership";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
             {
                 path:'/',
                 element:<Home></Home>
+            },
+            {
+                path:'/membership',
+                element:<PrivateRoutes><Membership></Membership></PrivateRoutes>,
             },
             {
                 path:'/login',

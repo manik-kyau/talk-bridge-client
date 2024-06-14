@@ -10,7 +10,7 @@ const Announcement = () => {
     return (
         <>
             {
-                announcements ? <div className='mb-[100px] px-5 lg:px-0'>
+                announcements.length ? <div className='mb-[100px] px-5 lg:px-0'>
                     <div className='text-center space-y-2'>
                         <h2 className='text-[40px] font-bold'>All Announcements</h2>
                     </div>
