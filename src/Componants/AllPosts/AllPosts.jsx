@@ -1,13 +1,10 @@
 
 import { useEffect, useState } from 'react';
-import usePosts from '../../Hooks/usePosts';
 import PostCard from '../PostCard/PostCard';
-import Select from 'react-select'
 
 const AllPosts = ({search}) => {
-    console.log(search);
+    // console.log(search);
 
-    // const [posts] = usePosts();
     const [posts, setPosts] = useState([]);
     const [postCount, setPostCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
@@ -20,9 +17,7 @@ const AllPosts = ({search}) => {
         pages.push(i)
     }
     // const pages = [...Array(numberOfPages).keys()];
-    // console.log(pages);
-    // console.log(count);
-    // console.log(posts);
+    
     const sortedPosts = posts.sort((a, b) => new Date(b.postTime
     ) - new Date(a.postTime
     ));

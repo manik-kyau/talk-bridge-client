@@ -15,7 +15,7 @@ const Dashboard = () => {
             .catch(error => console.log(error))
     }
     return (
-        <div className="flex gap-6 max-w-[1180px] mx-auto">
+        <div className="flex gap-6">
             <div className="w-64 min-h-screen bg-gradient-to-r from-[#7E90FE] to-[#9873FF]">
                 <ul className="menu">
                     {

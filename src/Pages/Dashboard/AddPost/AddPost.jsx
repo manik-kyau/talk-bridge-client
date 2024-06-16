@@ -15,10 +15,10 @@ const AddPost = () => {
 
     const { user } = useAuth();
     const [myPosts] = useMyPosts();
-    console.log(myPosts);
+    // console.log(myPosts);
 
     const [userBadge, setUserBadge] = useState([]);
-    console.log(userBadge.badge);
+    // console.log(userBadge.badge);
 
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
     const axiosPublic = useAxiosPublic();
@@ -66,7 +66,7 @@ const AddPost = () => {
         console.log('with image url', res.data);
     }
 
-    const shouldHideButton = userBadge.badge === 'bronze' && myPosts.length === 5;
+    const shouldHideButton = userBadge.badge === 'Bronze' && myPosts.length === 5;
 
     return (
         <div>
