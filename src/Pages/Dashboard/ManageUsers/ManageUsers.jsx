@@ -71,7 +71,7 @@ const ManageUsers = () => {
                             {/* <th>User Image</th> */}
                             <th className="">USER NAME</th>
                             <th>USER EMAIL</th>
-                            <th>BADGE</th>
+                            <th>STATUS</th>
                             <th>MAKE ADMIN</th>
                             <th>ACTION</th>
                         </tr>
@@ -83,11 +83,11 @@ const ManageUsers = () => {
                                 
                                 <td className="text-base font-semibold">{user.name}</td>
                                 <td className="text-base font-semibold">{user.email}</td>
-                                <td className="text-base font-semibold">{user.badge}</td>
+                                <td className="text-base font-semibold">{user.badge == "gold" ? "Member" : ""}</td>
                                 <td className="">
-                                    {user.role === 'admin' ? 'Admin' : <button onClick={() => handleMakeAdmin(user)} className="flex items-center justify-center text-center btn-xs py-4 bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white rounded-lg">
-                                        <h2 className="text-base">Make Admin</h2>
-                                    </button>}
+                                    <button onClick={() => handleMakeAdmin(user)} className={user.role === 'admin' ? 'bg-orange-500 w-full text-white py-1 rounded-lg' : 'flex items-center justify-center text-center w-full btn-xs py-4 bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white rounded-lg'}>
+                                        <h2 className="text-base">{user.role == 'admin' ? 'Admin' : 'Make Admin'}</h2>
+                                    </button>
                                 </td>
                                 <th className="">
                                     <button onClick={() => handleDeleteUser(user._id)} className="flex items-center justify-center text-center btn-xs py-4 bg-red-700 text-white rounded-lg"><RiDeleteBin6Line className="text-xl "></RiDeleteBin6Line></button>

@@ -1,7 +1,7 @@
 
 const AnnouncementCard = ({ announcement }) => {
     const { authorName, image, title, description } = announcement;
-    console.log(announcement);
+    // console.log(announcement);
     return (
         <div className="border">
             <div>

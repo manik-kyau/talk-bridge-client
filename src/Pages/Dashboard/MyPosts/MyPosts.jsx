@@ -9,44 +9,44 @@ import useAuth from "../../../Hooks/useAuth";
 const MyPosts = () => {
 
     const [myPosts] = useMyPosts();
-    // const {user} = useAuth();
+    const {user} = useAuth();
 
-    // const axiosSecure = useAxiosSecure();
-    // const {data: posts = [], refetch} = useQuery({
-    //     queryKey: ['posts'],
-    //     queryFn: async()=>{
-    //         const res = await axiosSecure.get(`/posts?authorEmail=${user?.email}`);
-    //         return res.data;
-    //     }
-    // });
+    const axiosSecure = useAxiosSecure();
+    const {data: posts = [], refetch} = useQuery({
+        queryKey: ['specificPosts'],
+        queryFn: async()=>{
+            const res = await axiosSecure.get(`/specificPosts?authorEmail=${user?.email}`);
+            return res.data;
+        }
+    });
 
-    // const handleDeleteUser = (id) => {
-    //     // console.log(id);
-    //     Swal.fire({
-    //         title: "Are you sure?",
-    //         text: "You won't be able to revert this!",
-    //         icon: "warning",
-    //         showCancelButton: true,
-    //         confirmButtonColor: "#3085d6",
-    //         cancelButtonColor: "#d33",
-    //         confirmButtonText: "Yes, delete it!"
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             axiosSecure.delete(`/posts/${id}`)
-    //                 .then(res => {
-    //                     // console.log(res.data);
-    //                     refetch();
-    //                     if (res.data.deletedCount > 0) {
-    //                         Swal.fire({
-    //                             title: "Deleted!",
-    //                             text: "Your file has been deleted.",
-    //                             icon: "success"
-    //                         });
-    //                     }
-    //                 })
-    //         }
-    //     });
-    // }
+    const handleDeleteUser = (id) => {
+        // console.log(id);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/specificPosts/${id}`)
+                    .then(res => {
+                        // console.log(res.data);
+                        refetch();
+                        if (res.data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
+    }
 
     return (
         <div>
@@ -70,7 +70,7 @@ const MyPosts = () => {
                     </thead>
                     <tbody>
                         {
-                            myPosts.map((myPost, idx) => <tr key={idx}>
+                            posts.map((myPost, idx) => <tr key={idx}>
                                 <th className="text-base font-semibold">{idx + 1}</th>
                                 
                                 <td className="text-base font-semibold">{myPost.postTitle}</td>
