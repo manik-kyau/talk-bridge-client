@@ -18,6 +18,7 @@ import ManageAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnou
 import AllAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnouncements";
 import UpdateAnnouncement from "../Pages/Dashboard/UpdateAnnouncement/UpdateAnnouncement";
 import Membership from "../Pages/Membership/Membership";
+import MyPosts from "../Pages/Dashboard/MyPosts/MyPosts";
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
             {
                 path: 'addPost',
                 element: <AddPost></AddPost>
+            },
+            {
+                path: 'myPosts',
+                element: <MyPosts></MyPosts>
             },
 
             //Only Admin Routes

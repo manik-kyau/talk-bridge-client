@@ -82,21 +82,18 @@ const CheckoutForm = () => {
                 const res = await axiosSecure.post('/payments',payment)
                 console.log(res.data);
                 if(res.data.insertedId){
-                    toast.success("payment successfully done");
+                    toast.success("Payment successfully done and get gold badge");
                 }
                 // change badge for membership
                 const membership = {
                     name: user.displayName,
                     email: user.email,
                     image: user?.photoURL,
-                    badge: 'gold'
+                    // badge: 'gold'
                     // date: new Date(),
                 }
                 const memberRes = await axiosSecure.patch(`/users/${user?.email}`, membership)
                 console.log(memberRes.data);
-                if(memberRes.data.modifiedCount > 0){
-                    toast.success('You get Gold badge');
-                }
             }
         }
     }

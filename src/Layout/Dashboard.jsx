@@ -1,9 +1,19 @@
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
+import useAuth from "../Hooks/useAuth";
 
 const Dashboard = () => {
     // get isAdmin value from the database 
     const [isAdmin] = useAdmin();
+    const {logOut} = useAuth();
+
+    const handleLogOut = () => {
+        logOut()
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => console.log(error))
+    }
     return (
         <div className="flex gap-6 max-w-[1180px] mx-auto">
             <div className="w-64 min-h-screen bg-gradient-to-r from-[#7E90FE] to-[#9873FF]">
@@ -30,6 +40,12 @@ const Dashboard = () => {
 
                     <li className="text-lg font-medium"><NavLink to='/'>Home</NavLink></li>
                     <li className="text-lg font-medium"><NavLink to='/membership'>Membership</NavLink></li>
+
+                    <li className='mt-2'>
+                        <button
+                            onClick={handleLogOut}
+                            className='btn text-white bg-gradient-to-r from-[#7E90FE] to-[#9873FF] block text-lg font-semibold '>Logout</button>
+                    </li>
 
                 </ul>
             </div>
