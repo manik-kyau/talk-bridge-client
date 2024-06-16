@@ -1,17 +1,17 @@
 import { useState } from "react";
 import usePosts from "../Hooks/usePosts";
 
-const Banner = () => {
+const Banner = ({handleSearch}) => {
 
-    const [search, setSearch] = useState('');
-    const [posts] = usePosts(search);
+    // const [search, setSearch] = useState('');
+    // const [posts] = usePosts(search);
 
-    const handleSearch = (e) =>{
-        e.preventDefault();
-        const search = e.target.search.value;
-        // console.log(search);
-        setSearch(search)
-    }
+    // const handleSearch = (e) =>{
+    //     e.preventDefault();
+    //     const search = e.target.search.value;
+    //     // console.log(search);
+    //     setSearch(search)
+    // }
 
     return (
         <div>

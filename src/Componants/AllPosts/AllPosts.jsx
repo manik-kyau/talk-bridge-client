@@ -4,7 +4,8 @@ import usePosts from '../../Hooks/usePosts';
 import PostCard from '../PostCard/PostCard';
 import Select from 'react-select'
 
-const AllPosts = () => {
+const AllPosts = ({search}) => {
+    console.log(search);
 
     // const [posts] = usePosts();
     const [posts, setPosts] = useState([]);
@@ -12,7 +13,6 @@ const AllPosts = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [postPerPage, setPostPerPage] = useState(5);
     const { count } = postCount;
-    // const postsPerPage = 5;
     const numberOfPages = Math.ceil(count / postPerPage);
 
     const pages = [];
@@ -28,10 +28,10 @@ const AllPosts = () => {
     ));
 
     useEffect(() => {
-        fetch(`http://localhost:5000/posts?page=${currentPage}&size=${postPerPage}`)
+        fetch(`http://localhost:5000/posts?page=${currentPage}&size=${postPerPage}&search=${search}`)
             .then(res => res.json())
             .then(data => setPosts(data))
-    }, [currentPage, postPerPage])
+    }, [currentPage, postPerPage,search])
 
     useEffect(() => {
         fetch('http://localhost:5000/postsCount')
