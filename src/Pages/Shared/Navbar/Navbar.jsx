@@ -3,10 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import { IoNotifications } from "react-icons/io5";
 import useAnnouncement from "../../../Hooks/useAnnouncement";
+import useAdmin from "../../../Hooks/useAdmin";
 
 const Navbar = () => {
 
     const { user, logOut } = useAuth();
+    const [isAdmin] = useAdmin();
     const [annousments] = useAnnouncement();
 
     const NavItems = <>
@@ -16,9 +18,9 @@ const Navbar = () => {
         <li><NavLink to='/membership'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
         >Membership</NavLink></li>
-        <li><NavLink to='/secret'
+        {/* <li><NavLink to='/secret'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
-        >Secret</NavLink></li>
+        >Secret</NavLink></li> */}
         {/* <li><NavLink to='/register'
             className={({ isActive }) => isActive ? "bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-transparent bg-clip-text font-bold text-lg " : "text-lg font-bold WorkSans hover:text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF]"}
         >register</NavLink></li> */}
@@ -98,9 +100,19 @@ const Navbar = () => {
                                     <h2>{user?.displayName}</h2>
                                 </li>
 
-                                <li className="text-lg font-bold">
+                                {/* <li className="text-lg font-bold">
                                     <Link to='dashboard'>Dashboard</Link>
-                                </li>
+                                </li> */}
+                                {
+                                    user && isAdmin && <li className="text-lg font-bold">
+                                        <Link to='/dashboard/adminProfile'>Dashboard</Link>
+                                    </li>
+                                }
+                                {
+                                    user && !isAdmin && <li className="text-lg font-bold">
+                                        <Link to='/dashboard/userProfile'>Dashboard</Link>
+                                    </li>
+                                }
 
                                 <li className='mt-2'>
                                     <button onClick={handleLogOut} className='text-white bg-gradient-to-r from-[#7E90FE] to-[#9873FF] block text-lg font-semibold text-center'>Logout</button>

@@ -5,7 +5,6 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import PrivateRoutes from "./PrivateRoute";
-import Secret from "../Pages/Secret/Secret";
 import PostDetails from "../Pages/PostDetails/PostDetails";
 import Dashboard from "../Layout/Dashboard";
 import AddPost from "../Pages/Dashboard/AddPost/AddPost";
@@ -14,7 +13,7 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import AdminProfile from "../Pages/Dashboard/AdminProfile/AdminProfile";
 import MakeAnnouncement from "../Pages/Dashboard/MakeAnnouncement/MakeAnnouncement";
 import AdminRoute from "./AdminRoute";
-import ManageAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnouncements";
+// import ManageAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnouncements";
 import AllAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnouncements";
 import UpdateAnnouncement from "../Pages/Dashboard/UpdateAnnouncement/UpdateAnnouncement";
 import Membership from "../Pages/Membership/Membership";
@@ -42,10 +41,10 @@ export const router = createBrowserRouter([
                 path: '/register',
                 element: <Register></Register>
             },
-            {
-                path: '/secret',
-                element: <PrivateRoutes><Secret></Secret></PrivateRoutes>
-            },
+            // {
+            //     path: '/secret',
+            //     element: <PrivateRoutes><Secret></Secret></PrivateRoutes>
+            // },
             {
                 path: '/postDetrails/:id',
                 element: <PrivateRoutes><PostDetails></PostDetails></PrivateRoutes>,
@@ -59,7 +58,7 @@ export const router = createBrowserRouter([
         children:[
             // normal user Routes
             {
-                path: 'myProfile',
+                path: 'userProfile',
                 element: <UserProfile></UserProfile>
             },
             {
@@ -91,7 +90,7 @@ export const router = createBrowserRouter([
             {
                 path: 'updateAnnouncement/:id',
                 element: <AdminRoute><UpdateAnnouncement></UpdateAnnouncement></AdminRoute>,
-                loader: ({params})=> fetch(`http://localhost:5000/announcements/${params.id}`)
+                loader: ({params})=> fetch(`http://localhost:5000/announcements/${params.id}`),
             },
         ]
     }

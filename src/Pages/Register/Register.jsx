@@ -10,6 +10,8 @@ import useAuth from "../../Hooks/useAuth";
 import Google from "../Shared/Google/Google";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
+// const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+// const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const Register = () => {
 
     const axiosPublic = useAxiosPublic();
@@ -19,35 +21,41 @@ const Register = () => {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
     const { createUser, updateUserProfile, logOut } = useAuth();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         // console.log(data);
 
+        // const imageFile = { image: data.image[0] }
+        // const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        //     headers: {
+        //         'content-type': 'multipart/form-data',
+        //     }
+        // })
+        // console.log('Mone hoy nai',res.data.data.display_url);
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 logOut();
                 // console.log(result.user);
-
-                updateUserProfile(data.name, data.photoURL)
+                updateUserProfile(data.name, data.image)
                     .then(() => {
                         console.log('profile updated');
                         // create user entry in the database
-
+                        // if (res.data.success) {
                         const userInfo = {
                             name: data.name,
                             email: data.email,
-                            image: data.photoURL,
-                            badge: 'Bronze',
+                            image: data.image,
+                            badge: "Bronze"
                         }
-                        axiosPublic.post('/users',userInfo)
-                        .then(res => {
-                            if(res.data.insertedId){
-                                toast.success("Registration Successfully Done.");
-                                navigate("/login");
-                                reset();
-                            }
-                        })
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    toast.success("Registration Successfully Done.");
+                                    navigate("/login");
+                                    reset();
+                                }
+                            })
                     })
                     .catch(error => console.log(error))
             })
@@ -94,8 +102,8 @@ const Register = () => {
                             <label className="block text-lg font-semibold">PhotoURL</label>
                             <input
                                 type="text"
-                                {...register("photoURL", { required: true })}
-                                // name='photo'
+                                {...register("image", { required: true })}
+                                name='image'
                                 placeholder="Your photo"
                                 className="block w-full p-2 rounded focus:outline-none focus:ring focus:ring-opacity-25 focus:dark:ring-violet-600 dark:bg-gray-100 border" />
                             {errors.photoURL?.type === "required" && <span className="text-red-500">Please enter photo url.</span>}

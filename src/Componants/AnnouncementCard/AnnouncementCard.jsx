@@ -4,8 +4,8 @@ const AnnouncementCard = ({ announcement }) => {
     // console.log(announcement);
     return (
         <div className="border">
-            <div>
-                <h2>{title}</h2>
+            <div className="space-y-2">
+                <h2 className="text-2xl font-bold">{title}</h2>
                 <p>{description}</p>
             </div>
             <div>

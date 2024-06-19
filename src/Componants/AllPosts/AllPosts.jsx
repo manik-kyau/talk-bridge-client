@@ -6,16 +6,16 @@ const AllPosts = ({search}) => {
     // console.log(search);
 
     const [posts, setPosts] = useState([]);
-    const [postCount, setPostCount] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [postPerPage, setPostPerPage] = useState(5);
-    const { count } = postCount;
-    const numberOfPages = Math.ceil(count / postPerPage);
+    // const [postCount, setPostCount] = useState(0);
+    // const [currentPage, setCurrentPage] = useState(0);
+    // const [postPerPage, setPostPerPage] = useState(5);
+    // const { count } = postCount;
+    // const numberOfPages = Math.ceil(count / postPerPage);
 
-    const pages = [];
-    for (let i = 0; i < numberOfPages; i++) {
-        pages.push(i)
-    }
+    // const pages = [];
+    // for (let i = 0; i < numberOfPages; i++) {
+    //     pages.push(i)
+    // }
     // const pages = [...Array(numberOfPages).keys()];
     
     const sortedPosts = posts.sort((a, b) => new Date(b.postTime
@@ -23,35 +23,38 @@ const AllPosts = ({search}) => {
     ));
 
     useEffect(() => {
-        fetch(`http://localhost:5000/posts?page=${currentPage}&size=${postPerPage}&search=${search}`)
+        // fetch(`http://localhost:5000/posts?page=${currentPage}&size=${postPerPage}&search=${search}`)
+        fetch('http://localhost:5000/posts')
             .then(res => res.json())
             .then(data => setPosts(data))
-    }, [currentPage, postPerPage,search])
+    },[] )
+    // [currentPage, postPerPage,search]
 
-    useEffect(() => {
-        fetch('http://localhost:5000/postsCount')
-            .then(res => res.json())
-            .then(data => setPostCount(data))
-    }, []);
 
-    const handlePostPerPage = (e) => {
-        const intValue = parseInt(e.target.value);
-        console.log(intValue);
-        setPostPerPage(intValue);
-        setCurrentPage(0)
-    }
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/postsCount')
+    //         .then(res => res.json())
+    //         .then(data => setPostCount(data))
+    // }, []);
 
-    const handlePrevPage = () => {
-        if (currentPage > 0) {
-            setCurrentPage(currentPage - 1);
-        }
-    }
+    // const handlePostPerPage = (e) => {
+    //     const intValue = parseInt(e.target.value);
+    //     console.log(intValue);
+    //     setPostPerPage(intValue);
+    //     setCurrentPage(0)
+    // }
 
-    const handleNextPage = () => {
-        if (currentPage < pages.length - 1) {
-            setCurrentPage(currentPage + 1);
-        }
-    }
+    // const handlePrevPage = () => {
+    //     if (currentPage > 0) {
+    //         setCurrentPage(currentPage - 1);
+    //     }
+    // }
+
+    // const handleNextPage = () => {
+    //     if (currentPage < pages.length - 1) {
+    //         setCurrentPage(currentPage + 1);
+    //     }
+    // }
 
     return (
         <div className='mb-[100px] px-5 lg:px-0'>
@@ -78,7 +81,8 @@ const AllPosts = ({search}) => {
                     ></PostCard>)
                 }
             </div>
-            <div className='text-2xl font-semibold text-center mt-10'>
+            {/* TODO: */}
+            {/* <div className='text-2xl font-semibold text-center mt-10'>
                 <button onClick={handlePrevPage} className="btn">Prev</button>
                 {
                     pages.map((page, idx) => <button
@@ -99,7 +103,7 @@ const AllPosts = ({search}) => {
                     <option className='text-black' value="12">12</option>
                     <option className='text-black' value="15">15</option>
                 </select>
-            </div>
+            </div> */}
         </div>
     );
 };

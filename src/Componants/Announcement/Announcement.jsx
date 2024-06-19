@@ -15,7 +15,7 @@ const Announcement = () => {
                         <h2 className='text-[40px] font-bold'>All Announcements</h2>
                     </div>
 
-                    <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mt-12'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-8 mt-12'>
                         {
                             announcements.map((announcement,idx)=><AnnouncementCard key = {idx}
                             announcement={announcement}

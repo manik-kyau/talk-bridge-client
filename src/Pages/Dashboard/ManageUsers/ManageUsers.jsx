@@ -71,7 +71,7 @@ const ManageUsers = () => {
                             {/* <th>User Image</th> */}
                             <th className="">USER NAME</th>
                             <th>USER EMAIL</th>
-                            <th>STATUS</th>
+                            <th>SUBSCRIPTION STATUS</th>
                             <th>MAKE ADMIN</th>
                             <th>ACTION</th>
                         </tr>
@@ -83,7 +83,7 @@ const ManageUsers = () => {
                                 
                                 <td className="text-base font-semibold">{user.name}</td>
                                 <td className="text-base font-semibold">{user.email}</td>
-                                <td className="text-base font-semibold">{user.badge == "gold" ? "Member" : ""}</td>
+                                <td className="text-base font-semibold">{user.badge == "Gold" ? "Member" : ""}</td>
                                 <td className="">
                                     <button onClick={() => handleMakeAdmin(user)} className={user.role === 'admin' ? 'bg-orange-500 w-full text-white py-1 rounded-lg' : 'flex items-center justify-center text-center w-full btn-xs py-4 bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white rounded-lg'}>
                                         <h2 className="text-base">{user.role == 'admin' ? 'Admin' : 'Make Admin'}</h2>

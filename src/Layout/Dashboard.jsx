@@ -15,7 +15,7 @@ const Dashboard = () => {
             .catch(error => console.log(error))
     }
     return (
-        <div className="flex gap-6">
+        <div className="flex gap-6 bg-slate-50">
             <div className="w-64 min-h-screen bg-gradient-to-r from-[#7E90FE] to-[#9873FF]">
                 <ul className="menu">
                     {
@@ -29,7 +29,7 @@ const Dashboard = () => {
                         </>
                             :
                             <>
-                                <li className="text-lg font-medium"><NavLink to='/dashboard/myProfile'>My Profile</NavLink></li>
+                                <li className="text-lg font-medium"><NavLink to='/dashboard/userProfile'>My Profile</NavLink></li>
                                 <li className="text-lg font-medium"><NavLink to='/dashboard/addPost'>Add Post</NavLink></li>
                                 <li className="text-lg font-medium"><NavLink to='/dashboard/myPosts'>My Posts</NavLink></li>
                             </>
@@ -49,7 +49,7 @@ const Dashboard = () => {
 
                 </ul>
             </div>
-            <div className="flex-1 border p-8">
+            <div className="flex-1 border  p-8">
                 <Outlet></Outlet>
             </div>
         </div>
