@@ -3,14 +3,15 @@ import useMyPosts from '../../../Hooks/useMyPosts';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 import Banner from '../../../assets/images/bannerimage.jpg';
+import ProfilePostCard from '../ProfilePostCard/ProfilePostCard';
 
 const UserProfile = () => {
 
     const { user } = useAuth();
     const [myPosts] = useMyPosts();
+    // console.log(useMyPosts);
 
     const [profile, setProfile] = useState([]);
-    // const [comments, setComments] = useState([])
 
     const sortedPosts = myPosts.sort((a, b) => new Date(b.postTime
     ) - new Date(a.postTime));
@@ -21,7 +22,7 @@ const UserProfile = () => {
             .then(res => res.json())
             .then(data => {
                 const findMe = data.find(dta => dta.email == user.email);
-                console.log(findMe);
+                // console.log(findMe);
                 setProfile(findMe);
             })
     }, [])
@@ -29,7 +30,10 @@ const UserProfile = () => {
     // useEffect(() => {
     //     fetch(`http://localhost:5000/comments?postId=${sortedPosts._id}`)
     //         .then(res => res.json())
-    //         .then(data => setComments(data))
+    //         .then(data => {
+    //             setComments(data);
+    //             console.log(data);
+    //         })
     // }, [])
 
     return (
@@ -70,36 +74,11 @@ const UserProfile = () => {
                     <h2 className='text-2xl font-bold text-center mb-4'>Recent 3 Posts</h2>
                     <div className='grid grid-cols-3 gap-5 mb- mt-8'>
                         {
-                            sortedPosts.slice(0, 3).map((resentPost, idx) => <Link key={idx}
-                            to={`/postDetrails/${resentPost._id}`}
-                            >
-                                <div className="border bg-[#c4c1ba] p-2 rounded-lg">
-                                    <div className="mt-3 space-y-2">
-                                        <div className="flex items-center justify-between">
-                                            <h2 className="text-xl font-bold">{resentPost.postTitle.slice(0, 23)}</h2>
-                                            <p><span className="text-base font-medium">{resentPost.postTime.slice(0, 10)}</span></p>
-                                        </div>
-                                        <p>
-                                            <span className="text-base font-semibold mr-2">Tag:</span>
-                                            <span className="text-base font-medium">{resentPost.tag}</span>
-                                        </p>
-                                        <div className="flex justify-between">
-                                            <h2>
-                                                <span className="text-base font-semibold mr-1">UpVote: </span>
-                                                <span className="text-base font-medium">0</span>
-                                            </h2>
-                                            <h2>
-                                                <span className="text-base font-semibold mr-1">DownVote:</span>
-                                                <span className="text-base font-medium">0</span>
-                                            </h2>
-                                            <h2>
-                                                <span className="text-base font-semibold mr-1">Comments:</span>
-                                                <span className="text-base font-medium">0</span>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>)
+                            sortedPosts.slice(0, 3).map((resentPost, idx) =><ProfilePostCard 
+                            key={idx}
+                            resentPost={resentPost}
+                            ></ProfilePostCard> )
+                            
                         }
                     </div>
                 </div>

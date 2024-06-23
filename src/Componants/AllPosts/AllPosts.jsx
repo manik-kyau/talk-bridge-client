@@ -6,55 +6,56 @@ const AllPosts = ({search}) => {
     // console.log(search);
 
     const [posts, setPosts] = useState([]);
-    // const [postCount, setPostCount] = useState(0);
-    // const [currentPage, setCurrentPage] = useState(0);
-    // const [postPerPage, setPostPerPage] = useState(5);
-    // const { count } = postCount;
-    // const numberOfPages = Math.ceil(count / postPerPage);
+    // const [comments, setComments] = useState([])
+    const [postCount, setPostCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [postPerPage, setPostPerPage] = useState(5);
+    const { count } = postCount;
+    const numberOfPages = Math.ceil(count / postPerPage);
 
-    // const pages = [];
-    // for (let i = 0; i < numberOfPages; i++) {
-    //     pages.push(i)
-    // }
+    const pages = [];
+    for (let i = 0; i < numberOfPages; i++) {
+        pages.push(i)
+    }
     // const pages = [...Array(numberOfPages).keys()];
     
-    const sortedPosts = posts.sort((a, b) => new Date(b.postTime
-    ) - new Date(a.postTime
-    ));
+    // const sortedPosts = posts.sort((a, b) => new Date(b.postTime
+    // ) - new Date(a.postTime
+    // ));
 
     useEffect(() => {
-        // fetch(`http://localhost:5000/posts?page=${currentPage}&size=${postPerPage}&search=${search}`)
-        fetch('http://localhost:5000/posts')
+        fetch(`http://localhost:5000/posts?page=${currentPage}&size=${postPerPage}&search=${search}`)
             .then(res => res.json())
             .then(data => setPosts(data))
-    },[] )
+    },[currentPage, postPerPage,search] )
     // [currentPage, postPerPage,search]
 
 
-    // useEffect(() => {
-    //     fetch('http://localhost:5000/postsCount')
-    //         .then(res => res.json())
-    //         .then(data => setPostCount(data))
-    // }, []);
+    useEffect(() => {
+        fetch('http://localhost:5000/postsCount')
+            .then(res => res.json())
+            .then(data => setPostCount(data))
+    }, []);
 
-    // const handlePostPerPage = (e) => {
-    //     const intValue = parseInt(e.target.value);
-    //     console.log(intValue);
-    //     setPostPerPage(intValue);
-    //     setCurrentPage(0)
-    // }
+    const handlePostPerPage = (e) => {
+        const intValue = parseInt(e.target.value);
+        console.log(intValue);
+        setPostPerPage(intValue);
+        setCurrentPage(0)
+    }
 
-    // const handlePrevPage = () => {
-    //     if (currentPage > 0) {
-    //         setCurrentPage(currentPage - 1);
-    //     }
-    // }
+    const handlePrevPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
 
-    // const handleNextPage = () => {
-    //     if (currentPage < pages.length - 1) {
-    //         setCurrentPage(currentPage + 1);
-    //     }
-    // }
+    const handleNextPage = () => {
+        if (currentPage < pages.length - 1) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
 
     return (
         <div className='mb-[100px] px-5 lg:px-0'>
@@ -75,18 +76,18 @@ const AllPosts = ({search}) => {
             </div> */}
             <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mt-12'>
                 {
-                    sortedPosts.map((post, idx) => <PostCard
+                    posts.map((post, idx) => <PostCard
                         key={idx}
                         post={post}
                     ></PostCard>)
                 }
             </div>
             {/* TODO: */}
-            {/* <div className='text-2xl font-semibold text-center mt-10'>
+            <div className='text-2xl font-semibold text-center mt-10'>
                 <button onClick={handlePrevPage} className="btn">Prev</button>
                 {
                     pages.map((page, idx) => <button
-                        className={currentPage === page ? 'bg-orange-500 btn text-white mx-2' : 'btn mx-2'}
+                        className={currentPage === page ? 'bg-gradient-to-r from-[#7E90FE] to-[#9873FF] btn text-white mx-2' : 'btn mx-2'}
                         onClick={() => setCurrentPage(page)}
                         // className='btn mx-2'
                         key={idx}
@@ -103,7 +104,7 @@ const AllPosts = ({search}) => {
                     <option className='text-black' value="12">12</option>
                     <option className='text-black' value="15">15</option>
                 </select>
-            </div> */}
+            </div>
         </div>
     );
 };

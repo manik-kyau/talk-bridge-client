@@ -86,7 +86,7 @@ const ManageUsers = () => {
                                 <td className="text-base font-semibold">{user.badge == "Gold" ? "Member" : ""}</td>
                                 <td className="">
                                     <button onClick={() => handleMakeAdmin(user)} className={user.role === 'admin' ? 'bg-orange-500 w-full text-white py-1 rounded-lg' : 'flex items-center justify-center text-center w-full btn-xs py-4 bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white rounded-lg'}>
-                                        <h2 className="text-base">{user.role == 'admin' ? 'Admin' : 'Make Admin'}</h2>
+                                        <h2 className="text-base">{user.role == 'Admin' ? 'Admin' : 'Make Admin'}</h2>
                                     </button>
                                 </td>
                                 <th className="">

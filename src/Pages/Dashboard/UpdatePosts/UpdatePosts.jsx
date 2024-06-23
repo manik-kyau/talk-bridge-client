@@ -1,86 +1,68 @@
 import { Helmet } from "react-helmet-async";
-import useAuth from "../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
-import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useMyPosts from "../../../Hooks/useMyPosts";
-import { Link, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
-const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+import toast from "react-hot-toast";
 
-const AddPost = () => {
 
-    const { user } = useAuth();
-    const [myPosts] = useMyPosts();
-    // console.log(myPosts);
-
-    const [userBadge, setUserBadge] = useState([]);
-    // console.log(userBadge.badge);
+const UpdatePosts = () => {
 
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
-    const axiosPublic = useAxiosPublic();
+
+    const [post, setPost] = useState([]);
+
+    const {postTitle,postDescription,tag, upVote,downVote, authorName, authorEmail,authorImage,postTime,_id} = post;
+
     const axiosSecure = useAxiosSecure();
-    const navigate = useNavigate();
+    const { id } = useParams();
+
+    // const onSubmit = async (data) => {
+    //     // console.log(data);
+    //         const updatePost = {
+    //             postTitle: data.title,
+    //             postDescription: data.description,
+    //             tag: data.tags,
+    //             upVote: data.upVote,
+    //             downVote: data.downVote,
+    //             authorName: data.name,
+    //             authorEmail: data.email,
+    //             authorImage: data.image,
+    //             postTime: postTime,
+    //         }
+    //         const postRes = await axiosSecure.patch(`/posts/${_id}`, updatePost)
+    //         console.log(postRes.data);
+    //         if (postRes.data.modifiedCount > 0) {
+    //             toast.success('Post Updated successfully Done.')
+    //             // reset();
+    //         }
+    // }
 
     useEffect(() => {
-        fetch('http://localhost:5000/users')
-            .then(res => res.json())
-            .then(data => {
-                const findMe = data.find(dta => dta.email == user.email);
-                // console.log(findMe.badge);
-                setUserBadge(findMe)
+        axiosSecure.get('/posts')
+            .then(res => {
+                const findPost = res.data.find(dta => dta._id === id);
+                // console.log(findPost);
+                setPost(findPost)
             })
     }, [])
-
-    const onSubmit = async (data) => {
-        console.log(data);
-        const imageFile = { image: data.image[0] }
-        const res = await axiosPublic.post(image_hosting_api, imageFile, {
-            headers: {
-                'content-type': 'multipart/form-data',
-            }
-        })
-        if (res.data.success) {
-            const posts = {
-                postTitle: data.title,
-                postDescription: data.description,
-                tag: data.tags,
-                postTime: new Date(),
-                upVote: parseInt(data.upVote),
-                downVote: parseInt(data.downVote),
-                authorName: data.name,
-                authorEmail: user?.email,
-                authorImage: res.data.data.display_url
-            }
-            const postRes = await axiosSecure.post('/posts', posts)
-            console.log(postRes.data);
-            if (postRes.data.insertedId) {
-                toast.success('Post Created successfully Done.')
-                navigate('/dashboard/myPosts')
-                reset();
-            }
-        }
-        console.log('with image url', res.data);
-    }
-
-    const shouldHideform = userBadge.badge === 'Bronze' && myPosts.length === 5;
 
     return (
         <div>
             <Helmet>
-                <title>Add Post</title>
+                <title>Upadate Post</title>
             </Helmet>
             <div>
-                <div className={shouldHideform ? 'hidden' : 'block'}>
+                <div
+                // className={shouldHideButton ? 'hidden' : 'block'}
+                >
                     <div className='text-center space-y-4 mt-8'>
-                        <h2 className='text-5xl font-bold'>Create Post</h2>
+                        <h2 className='text-5xl font-bold'>Update Post</h2>
                         <p className='text-base font-medium md:w-2/3 mx-auto'>Provide a concise description (a few sentences) of the most essential elements of the assignment. It is helpful to make sure the most important information about the genre, purpose, topic(s), and length of the paper are very easy to find.</p>
                     </div>
                     <form
-                        onSubmit={handleSubmit(onSubmit)}
+                        // onSubmit={handleSubmit(onSubmit)}
                         className="my-12">
                         <div className="flex flex-col md:flex-row md:gap-8">
                             <div className="mb-3 md:w-1/2">
@@ -89,6 +71,7 @@ const AddPost = () => {
                                     <input
                                         type="text"
                                         name='title'
+                                        defaultValue={postTitle}
                                         {...register("title", { required: true })}
                                         placeholder="Enter Title"
                                         className="block w-full outline-none rounded-md shadow-sm focus:ring focus:ring-opacity-75 focus:dark:ring-violet-600 p-2 dark:bg-gray-100 border mt-1" />
@@ -101,6 +84,7 @@ const AddPost = () => {
                                     <input
                                         type="text"
                                         name='description'
+                                        defaultValue={postDescription}
                                         {...register("description", { required: true })}
                                         placeholder="Enter Description"
                                         className="block w-full outline-none rounded-md shadow-sm focus:ring focus:ring-opacity-75 focus:dark:ring-violet-600 p-2 dark:bg-gray-100 border mt-1" />
@@ -115,6 +99,7 @@ const AddPost = () => {
                                     <span className="mb-1 text-lg font-semibold">Post Tag</span>
                                     <select className='text-base w-full outline-none rounded-md shadow-sm focus:ring focus:ring-opacity-75 focus:dark:ring-violet-600 p-2 dark:bg-gray-100 border mt-1'
                                         name="tags"
+                                        defaultValue={tag}
                                         {...register("tags", { required: false })}
                                     // required
                                     // id=""
@@ -139,6 +124,7 @@ const AddPost = () => {
                                     <input
                                         type="number"
                                         name='upVote'
+                                        defaultValue={upVote}
                                         {...register("upVote", { required: false })}
                                         value='0'
                                         placeholder="Enter Photo URL"
@@ -151,6 +137,7 @@ const AddPost = () => {
                                     <input
                                         type="number"
                                         name='downVote'
+                                        defaultValue={downVote}
                                         {...register("downVote", { required: false })}
                                         value='0'
                                         placeholder=""
@@ -163,7 +150,8 @@ const AddPost = () => {
                                 <span className="mb-1 text-lg font-semibold">Author Name</span>
                                 <input
                                     type="text"
-                                    value={user?.displayName}
+                                    // value={user?.displayName}
+                                    defaultValue={authorName}
                                     name='name'
                                     {...register("name", { required: true })}
                                     placeholder="Enter Name"
@@ -179,8 +167,8 @@ const AddPost = () => {
                                     <input
                                         type="email"
                                         name='email'
+                                        defaultValue={authorEmail}
                                         {...register("email", { required: true })}
-                                        value={user?.email}
                                         placeholder="Enter Email"
                                         className="block w-full outline-none rounded-md shadow-sm focus:ring focus:ring-opacity-75 focus:dark:ring-violet-600 p-2 dark:bg-gray-100 border mt-1" />
                                     {/* {errors.email?.type === "required" && <span className="text-red-500">Please select tag.</span>} */}
@@ -190,9 +178,10 @@ const AddPost = () => {
                                 <label className="block w-full">
                                     <span className="mb-1 text-lg font-semibold">Author Image</span>
                                     <input
-                                        type="file"
+                                        type="url"
                                         name='image'
-                                        {...register("image", { required: true })}
+                                        defaultValue={authorImage}
+                                        {...register("image", { required:false })}
                                         // value={user?.photoURL}
                                         placeholder="Enter Image Link"
                                         className="block w-full outline-none rounded-md shadow-sm focus:ring focus:ring-opacity-75 focus:dark:ring-violet-600 p-2 dark:bg-gray-100 border mt-1" />
@@ -207,17 +196,9 @@ const AddPost = () => {
                     </form>
                 </div>
                 {/* Pay button */}
-                <div className={shouldHideform ? 'block':'hidden'}>
-                    <div className="border flex flex-col justify-center items-center min-h-screen space-y-5">
-                        <p className="text-center text-lg font-semibold">If you are a normal user then you cannot more than 5 posts. If you want to post more then you must become a membership by making payment. Click the payment button below to become a membership.</p>
-                        <Link to='/membership'>
-                            <button className="btn bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white text-lg">Payment</button>
-                        </Link>
-                    </div>
-                </div>
             </div>
         </div>
     );
 };
 
-export default AddPost;
+export default UpdatePosts;

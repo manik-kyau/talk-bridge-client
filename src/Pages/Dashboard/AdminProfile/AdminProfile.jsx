@@ -15,6 +15,7 @@ const AdminProfile = () => {
     const [admin, setAdmin] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const axiosSecure = useAxiosSecure();
+    // console.log(admin);
 
 
     useEffect(() => {
@@ -26,7 +27,7 @@ const AdminProfile = () => {
             })
     }, [])
 
-
+    
     useEffect(() => {
         axiosSecure.get('/admin-stats')
             .then(res => {
@@ -56,14 +57,10 @@ const AdminProfile = () => {
         );
     };
 
-    // const pieChartData = totalCount.map((count)=>{
-    //     return{name:data.activities, value: count.}
-    // })
-
     return (
-        <div>
+        <div className=''>
             <div className=''>
-                <div className='w-[650px] border shadow-xl rounded-2xl mx-auto '>
+                <div className='w-[650px] shadow-xl rounded-2xl mx-auto'>
                     <div className='relative'>
                         <img className='h-[150px] w-full  rounded-t-2xl' src={Banner} alt="" />
                         <img className='h-[120px] w-[120px] absolute left-[40%] top-[58%] rounded-full border-4 border-white' src={admin.image} alt="" />
@@ -93,7 +90,7 @@ const AdminProfile = () => {
                 {/*  */}
                 <div>
                     {/* <h2 className='text-2xl font-bold text-center pb-3'>Total Activities</h2> */}
-                    <div className='flex gap-6 mt-14 border-2'>
+                    <div className='flex gap-6 mt-14'>
 
                         {/* posts */}
                         <div className="w-full flex items-center gap-4 bg-gradient-to-r from-[#3d89e6] to-[#a0e8f1] px-5 py-3 rounded-lg" >
@@ -132,7 +129,6 @@ const AdminProfile = () => {
                 <div className='flex justify-center items-center mt-14 mb-8 h-[450px]' >
                     {/* <ResponsiveContainer width="100%" height="100%"> */}
                     <PieChart width={500} height={500}>
-                    <Legend></Legend>
                         <Pie
                             data={data}
                             cx="50%"
@@ -147,6 +143,7 @@ const AdminProfile = () => {
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>
+                        <Legend></Legend>
                     </PieChart>
 
                     {/* </ResponsiveContainer> */}

@@ -71,10 +71,10 @@ const Navbar = () => {
 
                         </label>
                     </div> */}
-                    <button className="flex mr-4">
+                    <p className="flex mr-4">
                         <IoNotifications className="text-3xl text-[#9873FF]"></IoNotifications>
                         <div className="badge">+{annousments.length}</div>
-                    </button>
+                    </p>
 
                     {user && (
                         <div className='dropdown dropdown-end z-50 items-center'>
@@ -96,9 +96,9 @@ const Navbar = () => {
                                 tabIndex={0}
                                 className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-md w-52'
                             >
-                                <li className="text-lg font-bold">
+                                <p className="text-sm ml-3 font-bold">
                                     <h2>{user?.displayName}</h2>
-                                </li>
+                                </p>
 
                                 {/* <li className="text-lg font-bold">
                                     <Link to='dashboard'>Dashboard</Link>

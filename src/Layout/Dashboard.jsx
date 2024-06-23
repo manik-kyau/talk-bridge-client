@@ -24,8 +24,9 @@ const Dashboard = () => {
                             <li className="text-lg font-medium"><NavLink to='/dashboard/adminProfile'>Admin Profile</NavLink></li>
                             <li className="text-lg font-medium"><NavLink to='/dashboard/manageUsers'>Manage Users</NavLink></li>
                             <li className="text-lg font-medium"><NavLink to='/dashboard/allAnnouncements'>All Announcements</NavLink></li>
-                            <li className="text-lg font-medium"><NavLink to='/dashboard/reportedComments'>Reported Comments</NavLink></li>
+                            <li className="text-lg font-medium"><NavLink to='/dashboard/report'>Reported Comments</NavLink></li>
                             <li className="text-lg font-medium"><NavLink to='/dashboard/announcement'>Make Announcement</NavLink></li>
+                            <li className="text-lg font-medium"><NavLink to='/dashboard/managePosts'>Manage Posts</NavLink></li>
                         </>
                             :
                             <>
@@ -49,7 +50,7 @@ const Dashboard = () => {
 
                 </ul>
             </div>
-            <div className="flex-1 border  p-8">
+            <div className="flex-1 border p-8">
                 <Outlet></Outlet>
             </div>
         </div>

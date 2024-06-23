@@ -7,23 +7,42 @@ import Modal from "../../Componants/Modal/Modal";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { FacebookShareButton, TwitterShareButton } from 'react-share';
 import { TbShare3 } from "react-icons/tb";
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 
 const PostDetails = () => {
 
     // const currentPageUrl = `http://localhost:5173/postDetrails/${_id}`;
     const currentPageUrl = window.location.href;
+    const { user } = useAuth();
+    // const [posts,setPosts] = useState([]);
 
     const posts = useLoaderData();
+    // useEffect(()=>{
+    //     fetch(`http://localhost:5000/posts2`)
+    //     .then(res=>res.json())
+    //     .then(data=>{
+    //         console.log(data);
+    //         setPosts(data);
+    //     })
+    // },[user])
+    console.log(posts);
+
+    console.log('hellow');
     const { id } = useParams();
+    console.log(id);
     const axiosSecure = useAxiosSecure()
-    const [upCount, setUpCount] = useState(0)
-    const [downCount, setDownCount] = useState(0)
+    
     const [clicked, setClicked] = useState(false);
     const [comments, setComments] = useState([])
 
-    const singlePost = posts.find(post => post._id === id);
-    const { _id, authorImage, authorName, postDescription, postTime, postTitle, tag, upVote, downVote, authorEmail } = singlePost;
+    const singlePost = posts?.find(post => post._id === id);
+    const { _id, authorImage, authorName, postDescription, postTime, postTitle, tag, upVote, downVote, authorEmail } = singlePost || {};
+    console.log(singlePost);
+    // const [upCount, setUpCount] = useState(upVote)
+    // const [downCount, setDownCount] = useState(downVote)
+    // console.log("upVote count",upCount);
 
     const handleClick = () => {
         if (!clicked) {
@@ -31,6 +50,30 @@ const PostDetails = () => {
             console.log('Button clicked!');
         }
     };
+
+    const handleUpVote = async () => {
+        const totalUpVote = {
+            upVote: upVote + 1,
+            downVote: downVote,
+        }
+        const voteRes = await axiosSecure.patch(`/posts/${_id}`, totalUpVote)
+        console.log(voteRes.data);
+        if (voteRes.data.modifiedCount > 0) {
+            toast.success('Your vote successfully Done.')
+        }
+    }
+
+    const handleDownVote = async() => {
+        const totalDownVote = {
+            upVote: upVote,
+            downVote: downVote + 1,
+        }
+        const voteRes = await axiosSecure.patch(`/posts/${_id}`, totalDownVote)
+        console.log(voteRes.data);
+        if (voteRes.data.modifiedCount > 0) {
+            toast.success('Your vote successfully Done.')
+        }
+    }
 
     // comment 
     useEffect(() => {
@@ -45,7 +88,7 @@ const PostDetails = () => {
     // console.log(singlePost);
     return (
         <div className="pt-[100px] pb-[50px]">
-            <div className="w-3/4 border mx-auto space-y-3 text-center">
+            <div className="w-3/4 mx-auto space-y-3 text-center">
 
                 <h2 className="text-4xl font-bold pb-2">{postTitle}</h2>
                 <p className="text-base font-semibold">{postDescription}</p>
@@ -59,7 +102,7 @@ const PostDetails = () => {
 
                         <p>
                             <span className="text-lg font-semibold">Date:</span>
-                            <span className="text-base font-semibold ml-2">{postTime.slice(0, 10)}</span>
+                            <span className="text-base font-semibold ml-2">{postTime?.slice(0, 10)}</span>
                         </p>
                     </div>
 
@@ -74,10 +117,21 @@ const PostDetails = () => {
                     <hr />
 
                     <div className="flex justify-center space-x-3 my-5">
-                        <button onClick={handleClick}
+                        <button onClick={() => {
+                            handleClick()
+                            handleUpVote()
+                            // setUpCount((upCount) => upCount + 1)
+                        }}
                             disabled={clicked}
-                            className="btn text-lg">UpVote: <FaArrowTrendUp></FaArrowTrendUp></button>
-                        <button onClick={() => setDownCount((downCount) => downCount + 1)} className="btn text-lg">DownVote: <FaArrowTrendDown></FaArrowTrendDown></button>
+                            className="btn text-lg">UpVote <FaArrowTrendUp></FaArrowTrendUp></button>
+                        <button
+                            onClick={() => {
+                                handleClick()
+                                handleDownVote()
+                                // setDownCount((downCount) => downCount + 1)
+                            }}
+                            disabled={clicked}
+                            className="btn text-lg">DownVote <FaArrowTrendDown></FaArrowTrendDown></button>
 
                         <Modal singlePost={singlePost}></Modal>
                         {/* Share */}

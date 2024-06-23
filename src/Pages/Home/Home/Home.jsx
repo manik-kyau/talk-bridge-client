@@ -8,20 +8,23 @@ const Home = () => {
 
     const [search, setSearch] = useState('');
 
-    const handleSearch = (e) =>{
+    const handleSearch = (e) => {
         e.preventDefault();
         const search = e.target.search.value;
-        // console.log(search);
+        console.log(search);
         setSearch(search)
     }
 
     return (
         <>
-        <Helmet>
-            <title>TalkBridge | Home</title>
-        </Helmet>
+            <Helmet>
+                <title>TalkBridge | Home</title>
+            </Helmet>
             <div>
-                <Banner handleSearch={handleSearch}></Banner>
+                <Banner
+                    handleSearch={handleSearch}
+                    >
+                </Banner>
                 <AllPosts search={search}></AllPosts>
                 <Announcement></Announcement>
             </div>

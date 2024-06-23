@@ -11,13 +11,13 @@ const CheckoutForm = () => {
     const [transactionId, setTransactionId] = useState('');
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
-    const membershipPrice = 500;
+    const membershipPrice = 100;
 
 
     useEffect(() => {
         axiosSecure.post('/create-payment-intent', { price: membershipPrice })
             .then(res => {
-                console.log(res.data.clientSecret);
+                // console.log(res.data.clientSecret);
                 setClientSecret(res.data.clientSecret)
             })
 
@@ -68,7 +68,7 @@ const CheckoutForm = () => {
         else{
             console.log('payment intent', paymentIntent);
             if(paymentIntent.status === 'succeeded'){
-                console.log('transaction id', paymentIntent.id);
+                // console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id)
 
                 // now save the payment in the database

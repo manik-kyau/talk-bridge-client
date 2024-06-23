@@ -9,6 +9,7 @@ const Membership = () => {
         <div className="py-24 md:py-[120px] px-5 lg:px-0 ">
             <div className="mb-12">
                 <h2 className="text-[40px] font-bold text-center">Payment for Membership</h2>
+                <h2 className="text-[30px] font-bold text-center">Membership Fees 100 USDT</h2>
             </div>
             <div>
                 <Elements stripe={stripePromise}>

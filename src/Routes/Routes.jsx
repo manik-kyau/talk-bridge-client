@@ -18,6 +18,10 @@ import AllAnnouncements from "../Pages/Dashboard/ManageAnnouncements/AllAnnounce
 import UpdateAnnouncement from "../Pages/Dashboard/UpdateAnnouncement/UpdateAnnouncement";
 import Membership from "../Pages/Membership/Membership";
 import MyPosts from "../Pages/Dashboard/MyPosts/MyPosts";
+import ReportedComments from "../Pages/Dashboard/ReportedComments/ReportedComments";
+import ManagePosts from "../Pages/Dashboard/ManagePosts/ManagePosts";
+import UpdatePosts from "../Pages/Dashboard/UpdatePosts/UpdatePosts";
+// import ManagePosts from "../Pages/Dashboard/ManagePosts/ManagePosts";
 
 export const router = createBrowserRouter([
     {
@@ -80,6 +84,10 @@ export const router = createBrowserRouter([
                 element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
             },
             {
+                path: 'report',
+                element: <AdminRoute><ReportedComments></ReportedComments></AdminRoute>
+            },
+            {
                 path: 'announcement',
                 element: <AdminRoute><MakeAnnouncement></MakeAnnouncement></AdminRoute>
             },
@@ -91,6 +99,15 @@ export const router = createBrowserRouter([
                 path: 'updateAnnouncement/:id',
                 element: <AdminRoute><UpdateAnnouncement></UpdateAnnouncement></AdminRoute>,
                 loader: ({params})=> fetch(`http://localhost:5000/announcements/${params.id}`),
+            },
+            {
+                path: 'managePosts',
+                element: <AdminRoute><ManagePosts></ManagePosts></AdminRoute>,
+            },
+            {
+                path: 'updatePost/:id',
+                element: <AdminRoute><UpdatePosts></UpdatePosts></AdminRoute>,
+                // loader: ({params})=> fetch(`http://localhost:5000/posts/${params.id}`),
             },
         ]
     }
