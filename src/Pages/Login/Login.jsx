@@ -55,7 +55,7 @@ const Login = () => {
             <Helmet>
                 <title>Login</title>
             </Helmet>
-            <div className="flex flex-col md:flex-row justify-center gap-8 pt-[120px] pb-12">
+            <div className="flex flex-col md:flex-row justify-center gap-8  py-14">
                 <div className="flex w-full md:w-1/2" data-aos="zoom-in ">
                     <div className="w-full  p-4 rounded-lg shadow-xl sm:p-8 dark:bg-gray-50 dark:text-gray-800 bg-opacity-60">
                         <h2 className="mb-3 text-3xl lg:text-4xl font-semibold text-center">Login to your account</h2>

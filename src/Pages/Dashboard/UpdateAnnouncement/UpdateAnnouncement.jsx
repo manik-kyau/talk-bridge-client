@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
@@ -16,6 +16,7 @@ const UpdateAnnouncement = () => {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         // console.log(data);
@@ -36,7 +37,7 @@ const UpdateAnnouncement = () => {
             console.log(announcementRes.data);
             if (announcementRes.data.modifiedCount > 0) {
                 toast.success('Announcement Updated successfully Done.')
-                // reset();
+                navigate('/dashboard/allAnnouncements')
             }
         }
         console.log('with image url', res.data);

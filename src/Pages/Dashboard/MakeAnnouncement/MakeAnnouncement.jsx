@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -14,6 +15,7 @@ const MakeAnnouncement = () => {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
 
     const onSubmit = async(data) => {
         // console.log(data);
@@ -35,6 +37,7 @@ const MakeAnnouncement = () => {
             if(announcementRes.data.insertedId){
                 toast.success('Announcement Created successfully Done.')
                 reset();
+                navigate('/dashboard/allAnnouncements')
             }
         }
         console.log('with image url',res.data);

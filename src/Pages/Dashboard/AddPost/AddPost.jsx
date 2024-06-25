@@ -26,7 +26,7 @@ const AddPost = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://talk-bridge-server.vercel.app/users')
             .then(res => res.json())
             .then(data => {
                 const findMe = data.find(dta => dta.email == user.email);

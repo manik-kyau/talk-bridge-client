@@ -10,7 +10,7 @@ const PostCard = ({ post }) => {
     const { _id,authorImage, postTitle, tag, postTime, upVote, downVote } = post;
 
     useEffect(() => {
-        fetch(`http://localhost:5000/comments?postId=${_id}`)
+        fetch(`https://talk-bridge-server.vercel.app/comments?postId=${_id}`)
             .then(res => res.json())
             .then(data => {
                 setComments(data)

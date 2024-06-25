@@ -5,7 +5,8 @@ import { MdModeComment, MdPostAdd } from 'react-icons/md';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { FaUsers } from 'react-icons/fa6';
 // import { PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
+import { PieChart, Pie, Cell, Legend } from 'recharts';
+import { Helmet } from 'react-helmet-async';
 
 const COLORS = ['#FFBB28', '#0088FE', '#FF8042'];
 
@@ -19,7 +20,7 @@ const AdminProfile = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://talk-bridge-server.vercel.app/users')
             .then(res => res.json())
             .then(data => {
                 const Admin = data.find(dta => dta.role === 'admin')
@@ -41,7 +42,6 @@ const AdminProfile = () => {
         { name: 'Posts', value: totalCount.posts },
         { name: 'Users', value: totalCount.users },
         { name: 'Comments', value: totalCount.comments },
-        // { name: 'Group D', value: 200 },
     ];
 
     const RADIAN = Math.PI / 180;
@@ -59,6 +59,9 @@ const AdminProfile = () => {
 
     return (
         <div className=''>
+            <Helmet>
+                <title>Admin Profile</title>
+            </Helmet>
             <div className=''>
                 <div className='w-[650px] shadow-xl rounded-2xl mx-auto'>
                     <div className='relative'>
@@ -68,7 +71,7 @@ const AdminProfile = () => {
 
                     <div className='mt-16 space-y-6'>
                         <div className='space-y-3'>
-                            <h2 className="bg-orange-400 text-white w-24 mx-auto text-center py-1 text-lg font-bold rounded-2xl">{admin.role}</h2>
+                            <h2 className="bg-orange-400 text-white w-24 mx-auto text-center py-1 text-lg font-bold rounded-2xl">{admin.role == "admin" && 'Admin'}</h2>
                         </div>
 
                         <div className='flex justify-between px-5 pb-10'>

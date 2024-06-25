@@ -5,10 +5,10 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const MyPosts = () => {
 
-    const [myPosts] = useMyPosts();
     const {user} = useAuth();
 
     const axiosSecure = useAxiosSecure();
@@ -50,8 +50,11 @@ const MyPosts = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>My Posts</title>
+            </Helmet>
             <div className="">
-                <h2 className="text-3xl font-semibold">Total Posts: {myPosts.length} </h2>
+                <h2 className="text-3xl font-semibold">Total Posts: {posts.length} </h2>
             </div>
             {/* table */}
             <div className="overflow-x-auto mt-8">
@@ -64,7 +67,7 @@ const MyPosts = () => {
                             <th className="">POST TITLE</th>
                             <th>UPVOTE</th>
                             <th>DOWNVOTE</th>
-                            <th>COMMENT</th>
+                            <th>COMMENTS</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
@@ -77,8 +80,10 @@ const MyPosts = () => {
                                 <td className="text-base font-semibold">{myPost.upVote}</td>
                                 <td className="text-base font-semibold">{myPost.downVote}</td>
                                 <td className="">
-                                    <button onClick={() => handleMakeAdmin(user)} className="btn" >
-                                        comment
+                                    <button 
+                                    // onClick={() => handleMakeAdmin(user)} 
+                                    className="btn bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white text-lg font-bol" >
+                                        Comments
                                     </button>
                                 </td>
                                 <th className="">

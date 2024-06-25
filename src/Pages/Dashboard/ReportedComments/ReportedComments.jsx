@@ -1,8 +1,14 @@
+import { Helmet } from "react-helmet-async";
 
 const ReportedComments = () => {
     return (
         <div>
-            TODO this page
+            <Helmet>
+                <title>Reported Comments</title>
+            </Helmet>
+            <div>
+                TODO this page
+            </div>
         </div>
     );
 };

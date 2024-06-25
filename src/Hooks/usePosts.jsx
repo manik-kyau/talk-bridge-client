@@ -8,7 +8,7 @@ const usePosts = () => {
     // console.log(posts);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/posts?`)
+        fetch(`https://talk-bridge-server.vercel.app/posts?`)
             .then(res => res.json())
             .then(data => {
                 setPosts(data);

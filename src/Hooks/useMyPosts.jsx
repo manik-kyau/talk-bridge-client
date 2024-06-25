@@ -7,7 +7,7 @@ const useMyPosts = () => {
     const {user} = useAuth();
 
     useEffect(() => {
-        fetch(`http://localhost:5000/specificPosts?authorEmail=${user?.email}`)
+        fetch(`https://talk-bridge-server.vercel.app/specificPosts?authorEmail=${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setMyPosts(data);

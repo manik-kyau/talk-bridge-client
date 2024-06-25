@@ -122,15 +122,6 @@ const Navbar = () => {
                     )}
 
                     <div className="flex items-center">
-                        {/* <div className="indicator">
-
-                            <button className="flex">
-                            <IoNotifications className="text-3xl text-[#9873FF]"></IoNotifications>
-                                <div className="badge">+0</div>
-                            </button>
-
-                            <IoNotifications className="text-3xl mr-4  text-[#9873FF] "></IoNotifications>
-                        </div> */}
                         <div>
                             {
                                 user ? "" : <Link to='/login' className="btn bg-[#9873FF] text-white hover:bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-lg font-semibold border-none">Join US

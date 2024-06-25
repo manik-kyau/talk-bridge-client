@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useMyPosts from '../../../Hooks/useMyPosts';
-import { Link } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 import Banner from '../../../assets/images/bannerimage.jpg';
 import ProfilePostCard from '../ProfilePostCard/ProfilePostCard';
+import { Helmet } from 'react-helmet-async';
 
 const UserProfile = () => {
 
@@ -18,7 +18,7 @@ const UserProfile = () => {
     // console.log(sortedPosts);
 
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://talk-bridge-server.vercel.app/users')
             .then(res => res.json())
             .then(data => {
                 const findMe = data.find(dta => dta.email == user.email);
@@ -26,18 +26,12 @@ const UserProfile = () => {
                 setProfile(findMe);
             })
     }, [])
-    // comment count
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/comments?postId=${sortedPosts._id}`)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setComments(data);
-    //             console.log(data);
-    //         })
-    // }, [])
 
     return (
         <div className=''>
+            <Helmet>
+                <title>User Profile</title>
+            </Helmet>
             <div className=''>
                 <div className='w-[650px] h-[400px] border mx-auto shadow-xl rounded-2xl'>
                     <div className='relative'>

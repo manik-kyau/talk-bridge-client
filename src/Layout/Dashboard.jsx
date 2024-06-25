@@ -5,7 +5,7 @@ import useAuth from "../Hooks/useAuth";
 const Dashboard = () => {
     // get isAdmin value from the database 
     const [isAdmin] = useAdmin();
-    const {logOut} = useAuth();
+    const { logOut } = useAuth();
 
     const handleLogOut = () => {
         logOut()
@@ -16,7 +16,11 @@ const Dashboard = () => {
     }
     return (
         <div className="flex gap-6 bg-slate-50">
+            
             <div className="w-64 min-h-screen bg-gradient-to-r from-[#7E90FE] to-[#9873FF]">
+            <h2 className="text-3xl font-bold px-7 text-white py-4">
+                Talk<span className="text-green-600 ">Bridge</span>
+            </h2>
                 <ul className="menu">
                     {
                         isAdmin ? <>

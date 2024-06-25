@@ -14,7 +14,7 @@ const Modal = ({ singlePost }) => {
 
     const { _id, authorImage, authorName, postDescription, postTime, postTitle, tag, upVote, downVote, authorEmail } = singlePost;
 
-    const onSubmit = async(data) => {
+    const onSubmit = async (data) => {
         // console.log(data);
         const commentText = {
             postTitle: postTitle,
@@ -25,9 +25,9 @@ const Modal = ({ singlePost }) => {
             userPhoto: user.photoURL
 
         }
-        const commentRes = await axiosSecure.post('/comments',commentText)
+        const commentRes = await axiosSecure.post('/comments', commentText)
         console.log(commentRes.data);
-        if(commentRes.data.insertedId){
+        if (commentRes.data.insertedId) {
             reset();
         }
     }
@@ -45,15 +45,17 @@ const Modal = ({ singlePost }) => {
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                     >
-                        <input
-                            type="text"
-                            name="comment"
-                            {...register("comment", { required: true })}
-                            placeholder="Comment"
-                            className="border outline-none p-2 my-4 rounded-l-md" />
-                        <button className="bg-gradient-to-r text-lg rounded-r-md from-[#7E90FE] to-[#9873FF] text-white py-[7px] mt-[40px]  px-4">
-                            Comment
-                        </button>
+                        <div className="">
+                            <input
+                                type="text"
+                                name="comment"
+                                {...register("comment", { required: true })}
+                                placeholder="Comment"
+                                className="border outline-none p-2 my-4 rounded-l-md" />
+                            <button className="bg-gradient-to-r text-lg rounded-r-md from-[#7E90FE] to-[#9873FF] text-white py-[7px] mt-[40px]  px-4">
+                                Comment
+                            </button>
+                        </div>
                     </form>
                 </div>
             </dialog>

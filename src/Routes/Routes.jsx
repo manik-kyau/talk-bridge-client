@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
             {
                 path: '/postDetrails/:id',
                 element: <PrivateRoutes><PostDetails></PostDetails></PrivateRoutes>,
-                loader: ()=> fetch('http://localhost:5000/posts')
+                loader: ()=> fetch('https://talk-bridge-server.vercel.app/posts')
             },
         ]
     },
@@ -98,7 +98,7 @@ export const router = createBrowserRouter([
             {
                 path: 'updateAnnouncement/:id',
                 element: <AdminRoute><UpdateAnnouncement></UpdateAnnouncement></AdminRoute>,
-                loader: ({params})=> fetch(`http://localhost:5000/announcements/${params.id}`),
+                loader: ({params})=> fetch(`https://talk-bridge-server.vercel.app/announcements/${params.id}`),
             },
             {
                 path: 'managePosts',
@@ -107,7 +107,7 @@ export const router = createBrowserRouter([
             {
                 path: 'updatePost/:id',
                 element: <AdminRoute><UpdatePosts></UpdatePosts></AdminRoute>,
-                // loader: ({params})=> fetch(`http://localhost:5000/posts/${params.id}`),
+                // loader: ({params})=> fetch(`https://talk-bridge-server.vercel.app/posts/${params.id}`),
             },
         ]
     }

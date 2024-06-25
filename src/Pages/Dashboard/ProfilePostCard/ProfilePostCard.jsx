@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const ProfilePostCard = ({resentPost}) => {
     const [comments, setComments] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/comments?postId=${resentPost._id}`)
+        fetch(`https://talk-bridge-server.vercel.app/comments?postId=${resentPost._id}`)
             .then(res => res.json())
             .then(data => {
                 setComments(data);

@@ -6,7 +6,7 @@ const AllPosts = ({search}) => {
     // console.log(search);
 
     const [posts, setPosts] = useState([]);
-    // const [comments, setComments] = useState([])
+    const [asc, setAsc] = useState(true)
     const [postCount, setPostCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
     const [postPerPage, setPostPerPage] = useState(5);
@@ -24,15 +24,14 @@ const AllPosts = ({search}) => {
     // ));
 
     useEffect(() => {
-        fetch(`http://localhost:5000/posts?page=${currentPage}&size=${postPerPage}&search=${search}`)
+        fetch(`https://talk-bridge-server.vercel.app/posts?page=${currentPage}&size=${postPerPage}&search=${search}`)
             .then(res => res.json())
             .then(data => setPosts(data))
     },[currentPage, postPerPage,search] )
-    // [currentPage, postPerPage,search]
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/postsCount')
+        fetch('https://talk-bridge-server.vercel.app/postsCount')
             .then(res => res.json())
             .then(data => setPostCount(data))
     }, []);
@@ -63,17 +62,9 @@ const AllPosts = ({search}) => {
                 <h2 className='text-[40px] font-bold'>All Posts</h2>
                 <p className='w-full md:w-2/3 mx-auto text-base font-medium'>Explore the "All Posts" section on Talk Bridge to stay updated with the latest discussions, insights, and stories from around the world. This hub features a diverse range of posts from our global community, showcasing different perspectives and fostering meaningful dialogue.</p>
             </div>
-            {/* <div className="mb-3 mt-7 mx-auto">
-                <Select
-                    // options={tagOptions}
-                    isClearable
-                    placeholder='Select Tag'
-                    onChange={(selectOption) => setSelectTag(selectOption)}
-                    value={selactTag}
-                    className='w-[450px] border-8 rounded-md text-start text-xl text-bold mx-auto'
-                >
-                </Select>
-            </div> */}
+            <div className="mb-3 mt-7 mx-auto text-center">
+                <button onClick={()=>setAsc(!asc)} className='btn text-xl font-bold bg-gradient-to-r from-[#7E90FE] to-[#9873FF] text-white px-6'>Popularity</button>
+            </div>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mt-12'>
                 {
                     posts.map((post, idx) => <PostCard

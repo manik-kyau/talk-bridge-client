@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import useAnnouncement from '../../../Hooks/useAnnouncement';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const AllAnnouncements = () => {
-    const [announcements, ,refetch] = useAnnouncement();
+    const [announcements, , refetch] = useAnnouncement();
     const axiosSecure = useAxiosSecure();
 
     const handleDeleteItem = (announcement) => {
@@ -37,7 +38,13 @@ const AllAnnouncements = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>All Announcement</title>
+            </Helmet>
             <div>
+                <div className="">
+                    <h2 className="text-3xl font-semibold">Total Announcements: {announcements.length} </h2>
+                </div>
                 <div className="overflow-x-auto mt-8">
                     <table className="table">
                         {/* head */}
@@ -58,7 +65,7 @@ const AllAnnouncements = () => {
                                     <th className="text-base font-semibold">{idx + 1}</th>
 
                                     <td className="">
-                                        <img className="w-[50px] h-[50px] " src={announcement.image} alt="" />
+                                        <img className="w-[50px] h-[50px] rounded-xl" src={announcement.image} alt="" />
                                     </td>
                                     <td className="text-base font-semibold">{announcement.authorName}</td>
                                     <td className="text-base font-semibold">{announcement.title}</td>
